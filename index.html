@@ -1,18 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tableau Web Data Connector</title>
-  <script src="https://connectors.tableau.com/libs/tableauwdc-2.4.latest.js"></script>
-  <script src="geoboundaries_wdc.js"></script>
+  <title>Tableau Web Data Connector Template</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      display: block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-  <h1>Tableau Web Data Connector</h1>
+  <h1>Tableau Web Data Connector Template</h1>
 
-  <script>
-    // Run your WDC code here
-    (function() {
-      // Your WDC logic goes here
-    })();
-  </script>
+  <form>
+    <label for="isoCode">Enter ISO Code:</label>
+    <input type="text" id="isoCode" placeholder="e.g., USA">
+
+    <label for="admLevel">Enter Administrative Level:</label>
+    <input type="text" id="admLevel" placeholder="e.g., 1">
+
+    <button id="submitButton" type="button">Submit</button>
+  </form>
+
+  <!-- Include the Tableau JavaScript library -->
+  <script src="https://connectors.tableau.com/libs/tableauwdc-2.4.latest.js"></script>
+
+  <!-- Your JavaScript code -->
+  <script src="geoboundaries_wdc.js"></script>
 </body>
 </html>
