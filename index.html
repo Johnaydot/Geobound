@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Website</title>
+  <title>Geobound Repository</title>
 </head>
 <body>
-  <h1>Welcome to My Website!</h1>
-  <p>This is a sample HTML page.</p>
+  <h1>Welcome to Geobound Repository!</h1>
+  <h2>List of Files:</h2>
+  <ul id="fileList"></ul>
+
+  <script>
+    // GitHub API endpoint for retrieving the file information
+    var apiUrl = "https://api.github.com/repos/johnaydot/Geobound/contents/";
+
+    // Fetch the file list from GitHub API
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        var fileList = document.getElementById("fileList");
+        data.forEach(file => {
+          // Display file names as list items
+          var listItem = document.createElement("li");
+          var link = document.createElement("a");
+          link.textContent = file.name;
+          link.href = file.html_url;
+          listItem.appendChild(link);
+          fileList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error("Error retrieving file list:", error);
+      });
+  </script>
 </body>
 </html>
+
