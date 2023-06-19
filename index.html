@@ -70,5 +70,41 @@
 
   <!-- Your JavaScript code -->
   <script src="geoboundaries_wdc.js"></script>
-</body>
-</html>
+
+  <script>
+    // Submit button click event handler
+    document.getElementById('submitButton').addEventListener('click', function() {
+      // Get the ISO code and administrative level values
+      var isoCode = document.getElementById('isoCode').value;
+      var admLevel = document.getElementById('admLevel').value;
+
+      // Validate input values
+      if (isoCode.trim() === '' || admLevel.trim() === '') {
+        alert('Please enter ISO Code and Administrative Level.');
+        return;
+      }
+
+      // Create tableau connection object
+      var connection = tableau.makeConnector();
+
+      // Define the schema for the connector
+      connection.getSchema = function(schemaCallback) {
+        // Define the table schema here
+        var cols = [
+          { id: 'name', alias: 'Name', dataType: tableau.dataTypeEnum.string },
+          { id: 'isoCode', alias: 'ISO Code', dataType: tableau.dataTypeEnum.string }
+          // Add more columns as needed
+        ];
+
+        var tableSchema = {
+          id: 'geoboundaries',
+          alias: 'Geo Boundaries',
+          columns: cols
+        };
+
+        schemaCallback([tableSchema]);
+      };
+
+      // Fetch the data from the API and populate the Tableau table
+      connection.getData = function(table, doneCallback) {
+        //
