@@ -8,6 +8,8 @@
   <h2>List of Files:</h2>
   <ul id="fileList"></ul>
 
+  <iframe id="filePreview" style="width: 100%; height: 400px;"></iframe>
+
   <script>
     // GitHub API endpoint for retrieving the file information
     var apiUrl = "https://api.github.com/repos/johnaydot/Geobound/contents/";
@@ -17,12 +19,18 @@
       .then(response => response.json())
       .then(data => {
         var fileList = document.getElementById("fileList");
+        var filePreview = document.getElementById("filePreview");
+
         data.forEach(file => {
           // Display file names as list items
           var listItem = document.createElement("li");
           var link = document.createElement("a");
           link.textContent = file.name;
-          link.href = file.html_url;
+          link.href = "#";
+          link.addEventListener("click", function() {
+            // Load the HTML file in the iframe when clicked
+            filePreview.src = file.download_url;
+          });
           listItem.appendChild(link);
           fileList.appendChild(listItem);
         });
@@ -33,4 +41,3 @@
   </script>
 </body>
 </html>
-
