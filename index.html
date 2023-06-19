@@ -71,7 +71,7 @@
 
   <!-- Your JavaScript code -->
   <script>
-    (function () {
+    $(document).ready(function () {
       var myConnector = tableau.makeConnector();
 
       myConnector.getSchema = function (schemaCallback) {
@@ -80,14 +80,14 @@
           { id: "name", alias: "Name", dataType: tableau.dataTypeEnum.string },
           { id: "isoCode", alias: "ISO Code", dataType: tableau.dataTypeEnum.string },
           { id: "population", alias: "Population", dataType: tableau.dataTypeEnum.integer },
-          { id: "area", alias: "Area", dataType: tableau.dataTypeEnum.float },
+          { id: "area", alias: "Area", dataType: tableau.dataTypeEnum.float }
           // Add more columns as needed
         ];
 
         var tableSchema = {
           id: "geoboundaries",
           alias: "Geo Boundaries",
-          columns: cols,
+          columns: cols
         };
 
         schemaCallback([tableSchema]);
@@ -114,7 +114,7 @@
                 name: data[i].name,
                 isoCode: data[i].isoCode,
                 population: data[i].population,
-                area: data[i].area,
+                area: data[i].area
                 // Add more columns and extract the values from the response
                 // Adjust the property names and response structure based on your API
               };
@@ -135,13 +135,11 @@
 
       tableau.registerConnector(myConnector);
 
-      $(document).ready(function () {
-        $("#submitButton").click(function () {
-          tableau.connectionName = "Geo Boundaries Connector";
-          tableau.submit();
-        });
+      $("#submitButton").click(function () {
+        tableau.connectionName = "Geo Boundaries Connector";
+        tableau.submit();
       });
-    })();
+    });
   </script>
 </body>
 </html>
