@@ -98,5 +98,49 @@
         var admLevel = prompt("Please enter the administrative level:");
 
         // Use the entered values to construct the API URL
-        var apiUrl =
+        var apiUrl = "https://www.geoboundaries.org/api/current/gbOpen/" + isoCode + "/" + admLevel + "/";
 
+        // Make an AJAX request to the API
+        $.ajax({
+          url: apiUrl,
+          dataType: "json",
+          success: function (data) {
+            var tableData = [];
+
+            // Loop through the data and extract the relevant values
+            for (var i = 0; i < data.length; i++) {
+              var rowData = {
+                name: data[i].name,
+                isoCode: data[i].isoCode,
+                population: data[i].population,
+                area: data[i].area,
+                // Add more columns and extract the values from the response
+                // Adjust the property names and response structure based on your API
+              };
+              tableData.push(rowData);
+            }
+
+            table.appendRows(tableData);
+            doneCallback();
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            // Handle API request failure or error response
+            console.error("API request failed:", errorThrown);
+            // Display an error message to the user or take other appropriate actions
+            alert("Error occurred while fetching data from the API. Please try again later.");
+          }
+        });
+      };
+
+      tableau.registerConnector(myConnector);
+
+      $(document).ready(function () {
+        $("#submitButton").click(function () {
+          tableau.connectionName = "Geo Boundaries Connector";
+          tableau.submit();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
