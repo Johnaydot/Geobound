@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tableau Web Data Connector Template</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      display: block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tableau Web Data Connector Template</h1>
+
+  <form>
+    <label for="isoCode">Enter ISO Code:</label>
+    <input type="text" id="isoCode" placeholder="e.g., USA">
+
+    <label for="admLevel">Enter Administrative Level:</label>
+    <input type="text" id="admLevel" placeholder="e.g., 1">
+
+    <button id="submitButton" type="button">Submit</button>
+  </form>
+
+  <!-- Include the Tableau JavaScript library -->
+  <script src="https://connectors.tableau.com/libs/tableauwdc-2.4.latest.js"></script>
+
+  <!-- Your JavaScript code -->
+  <script>
+    (function () {
+      var myConnector = tableau.makeConnector();
+
+      myConnector.getSchema = function (schemaCallback) {
+        // Define the table schema here
+        var cols = [
+          { id: "name", alias: "Name", dataType: tableau.dataTypeEnum.string },
+          { id: "isoCode", alias: "ISO Code", dataType: tableau.dataTypeEnum.string },
+          { id: "population", alias: "Population", dataType: tableau.dataTypeEnum.integer },
+          { id: "area", alias: "Area", dataType: tableau.dataTypeEnum.float },
+          // Add more columns as needed
+        ];
+
+        var tableSchema = {
+          id: "geoboundaries",
+          alias: "Geo Boundaries",
+          columns: cols,
+        };
+
+        schemaCallback([tableSchema]);
+      };
+
+      myConnector.getData = function (table, doneCallback) {
+        // Prompt the user for ISO code and administrative level
+        var isoCode = prompt("Please enter the ISO code:");
+        var admLevel = prompt("Please enter the administrative level:");
+
+        // Use the entered values to construct the API URL
+        var apiUrl =
 
